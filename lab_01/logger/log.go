@@ -16,7 +16,8 @@ func Log(matrix [][]interface{}) {
 		"Picard, 3rd approx",
 		"Picard, 4th approx",
 		"Euler",
-		"Implicit Euler")
+		"Implicit Euler",
+		"Runge-Kutta")
 	tbl.WithHeaderFormatter(headerFmt).WithFirstColumnFormatter(columnFmt)
 
 	for _, row := range matrix {
