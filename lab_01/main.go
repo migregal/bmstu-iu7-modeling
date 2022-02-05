@@ -51,6 +51,11 @@ func main() {
 
 	solutionMatrix = append(solutionMatrix, solvers.NewPicard().Solution(from, h, n)...)
 	solutionMatrix = append(solutionMatrix, solvers.NewEuler().Solution(from, ys, h, n))
+	solutionMatrix = append(solutionMatrix, solvers.NewEuler().ImplicitSolution(from, ys, h, n))
+
+	for _, v := range solutionMatrix {
+		fmt.Println(len(v))
+	}
 
 	logger.Log(mtrx(solutionMatrix))
 }
