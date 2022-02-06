@@ -54,10 +54,10 @@ func main() {
 	solutionMatrix = append(solutionMatrix, solvers.NewEuler().ImplicitSolution(from, ys, h, n))
 	solutionMatrix = append(solutionMatrix, solvers.NewRungeKutta().Solution(from, ys, 0.5, h, n))
 
-	logger.Log(mtrx(solutionMatrix))
+	logger.Log(rotateMtrx(solutionMatrix))
 }
 
-func mtrx(matrix [][]float64) [][]interface{} {
+func rotateMtrx(matrix [][]float64) [][]interface{} {
 	result := make([][]interface{}, len(matrix[0]))
 	for i := 0; i < len(result); i++ {
 		result[0] = make([]interface{}, 0)
