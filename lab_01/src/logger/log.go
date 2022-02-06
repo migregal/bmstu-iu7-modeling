@@ -20,7 +20,11 @@ func Log(matrix [][]interface{}) {
 		"Runge-Kutta")
 	tbl.WithHeaderFormatter(headerFmt).WithFirstColumnFormatter(columnFmt)
 
-	for _, row := range matrix {
+	for i, row := range matrix {
+		if i%500 != 0 {
+			continue
+		}
+
 		tbl.AddRow(row...)
 	}
 
