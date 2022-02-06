@@ -1,73 +1,65 @@
 package main
 
 import (
-	"fmt"
+	"flag"
 	logger "lab_01/logger"
 	solvers "lab_01/solver"
 	"math"
 )
 
-func initX(x0, h float64, n int) []float64 {
-	x := make([]float64, 0)
-	for i := 0; i <= n; i++ {
-		x = append(x, x0)
-		x0 += h
-	}
-	return x
+type Flags struct {
+	from *float64
+	to   *float64
+	h    *float64
+	y0   *float64
+	each *int64
+
+	genOutput      *bool
+	outputFilename *string
 }
 
-func inputArgs() (float64, float64, float64, error) {
-	fmt.Println("Please, enter range for calculation (from and to):")
+func inputArgs() Flags {
+	flags := Flags{
+		from: flag.Float64("from", 0, "Start of serach interval"),
+		to:   flag.Float64("to", 2, "End of search interval"),
+		h:    flag.Float64("h", 1e-4, "Step for search interval"),
+		y0:   flag.Float64("y0", 0, "Base value for algorythms"),
+		each: flag.Int64("each", 1, "Step for result to display"),
 
-	var from, to float64
-	if n, err := fmt.Scanf("%f %f", &from, &to); n != 2 || err != nil {
-		return 0, 0, 0, err
+		genOutput:      flag.Bool("csv", false, "Output the result of the csv file"),
+		outputFilename: flag.String("output", "result.json", "The output filename"),
 	}
-	fmt.Println()
 
-	fmt.Println("Please, enter step for calculation:")
-	var h float64
-	if n, err := fmt.Scanf("%f", &h); n != 1 || err != nil {
-		return 0, 0, 0, err
-	}
-	fmt.Println()
+	flag.Parse()
 
-	return from, to, h, nil
+	return flags
+}
+
+func process(f Flags) [][]float64 {
+	n := int(math.Ceil(math.Abs(*f.to-*f.from) / *f.h))
+
+	result := make([][]float64, 0)
+	result = append(result, solvers.InitX(*f.from, *f.h, n))
+
+	result = append(result,
+		solvers.NewPicard().Solution(*f.from, *f.h, n)...)
+	result = append(result,
+		solvers.NewEuler().Solution(*f.from, *f.y0, *f.h, n))
+	result = append(result,
+		solvers.NewEuler().ImplSolution(*f.from, *f.y0, *f.h, n))
+	result = append(result,
+		solvers.NewRK().Solution(*f.from, *f.y0, 0.5, *f.h, n))
+
+	return result
 }
 
 func main() {
-	from, to, h, err := inputArgs()
-	if err != nil {
-		fmt.Println(err)
-		return
+	f := inputArgs()
+
+	result := process(f)
+
+	logger.Log(solvers.RotateMtrx(result), *f.each)
+	if *f.genOutput {
+		logger.LogToCsv(solvers.RotateMtrx(result), *f.outputFilename)
 	}
-
-	ys := 0.
-
-	n := int(math.Ceil(math.Abs(to-from) / h))
-
-	solutionMatrix := make([][]float64, 0)
-	solutionMatrix = append(solutionMatrix, initX(from, h, n))
-
-	solutionMatrix = append(solutionMatrix, solvers.NewPicard().Solution(from, h, n)...)
-	solutionMatrix = append(solutionMatrix, solvers.NewEuler().Solution(from, ys, h, n))
-	solutionMatrix = append(solutionMatrix, solvers.NewEuler().ImplicitSolution(from, ys, h, n))
-	solutionMatrix = append(solutionMatrix, solvers.NewRungeKutta().Solution(from, ys, 0.5, h, n))
-
-	logger.Log(rotateMtrx(solutionMatrix))
-}
-
-func rotateMtrx(matrix [][]float64) [][]interface{} {
-	result := make([][]interface{}, len(matrix[0]))
-	for i := 0; i < len(result); i++ {
-		result[0] = make([]interface{}, 0)
-	}
-
-	for _, row := range matrix {
-		for j, v := range row {
-			result[j] = append(result[j], fmt.Sprintf("%.6g", v))
-		}
-	}
-
-	return result
 }

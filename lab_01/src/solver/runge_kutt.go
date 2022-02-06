@@ -2,7 +2,7 @@ package solvers
 
 type RungeKutta struct{}
 
-func NewRungeKutta() RungeKutta {
+func NewRK() RungeKutta {
 	return RungeKutta{}
 }
 

@@ -24,7 +24,7 @@ func (e Euler) Solution(x0, y0, h float64, n int) []float64 {
 	return r
 }
 
-func (e Euler) ImplicitSolution(x0, y0, h float64, n int) []float64 {
+func (e Euler) ImplSolution(x0, y0, h float64, n int) []float64 {
 	r := make([]float64, 0)
 
 	r = append(r, y0)
