@@ -10,16 +10,7 @@ import (
 )
 
 var (
-	headers = []interface{}{
-		"X",
-		"Picard, 1st approx",
-		"Picard, 2nd approx",
-		"Picard, 3rd approx",
-		"Picard, 4th approx",
-		"Euler",
-		"Implicit Euler",
-		"Runge-Kutta",
-	}
+	headers = []interface{}{"X", "1", "2", "3", "4", "e1", "e2", "rk"}
 )
 
 func Log(matrix [][]interface{}, each int64) {
@@ -41,7 +32,7 @@ func Log(matrix [][]interface{}, each int64) {
 	tbl.Print()
 }
 
-func LogToCsv(matrix [][]interface{}, filename string) {
+func LogToCsv(matrix [][]interface{}, each int64, filename string) {
 	toString := func(slice []interface{}) []string {
 		strArray := make([]string, len(slice))
 		for i, arg := range slice {
@@ -57,7 +48,11 @@ func LogToCsv(matrix [][]interface{}, filename string) {
 	defer writer.Flush()
 
 	matrix = append([][]interface{}{headers}, matrix...)
-	for _, row := range matrix {
+	for i, row := range matrix {
+		if i%int(each) != 0 {
+			continue
+		}
+
 		err := writer.Write(toString(row))
 		checkError("Cannot write to file", err)
 	}

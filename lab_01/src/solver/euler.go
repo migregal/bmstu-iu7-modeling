@@ -1,6 +1,8 @@
 package solvers
 
-import "math"
+import (
+	"math"
+)
 
 type Euler struct {
 }

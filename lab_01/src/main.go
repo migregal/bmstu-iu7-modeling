@@ -27,7 +27,7 @@ func inputArgs() Flags {
 		each: flag.Int64("each", 1, "Step for result to display"),
 
 		genOutput:      flag.Bool("csv", false, "Output the result of the csv file"),
-		outputFilename: flag.String("output", "result.json", "The output filename"),
+		outputFilename: flag.String("output", "result.csv", "The output filename"),
 	}
 
 	flag.Parse()
@@ -43,12 +43,28 @@ func process(f Flags) [][]float64 {
 
 	result = append(result,
 		solvers.NewPicard().Solution(*f.from, *f.h, n)...)
-	result = append(result,
-		solvers.NewEuler().Solution(*f.from, *f.y0, *f.h, n))
-	result = append(result,
-		solvers.NewEuler().ImplSolution(*f.from, *f.y0, *f.h, n))
-	result = append(result,
-		solvers.NewRK().Solution(*f.from, *f.y0, 0.5, *f.h, n))
+
+	if *f.from >= 0 {
+		result = append(result,
+			solvers.NewEuler().Solution(*f.from, *f.y0, *f.h, n))
+		result = append(result,
+			solvers.NewEuler().ImplSolution(*f.from, *f.y0, *f.h, n))
+		result = append(result,
+			solvers.NewRK().Solution(*f.from, *f.y0, 0.5, *f.h, n))
+		return result
+	}
+
+	r := reverseSlice(solvers.NewEuler().Solution(0, *f.y0, -*f.h, n/2))
+	r = append(r, solvers.NewEuler().Solution(0+*f.h, *f.y0, *f.h, n/2-1)...)
+	result = append(result, r)
+
+	r = reverseSlice(solvers.NewEuler().ImplSolution(0, *f.y0, -*f.h, n/2))
+	r = append(r, solvers.NewEuler().ImplSolution(0+*f.h, *f.y0, *f.h, n/2-1)...)
+	result = append(result, r)
+
+	r = reverseSlice(solvers.NewRK().Solution(0, *f.y0, 0.5, -*f.h, n/2))
+	r = append(r, solvers.NewRK().Solution(0, *f.y0, 0.5, *f.h, n/2-1)...)
+	result = append(result, r)
 
 	return result
 }
@@ -60,6 +76,6 @@ func main() {
 
 	logger.Log(solvers.RotateMtrx(result), *f.each)
 	if *f.genOutput {
-		logger.LogToCsv(solvers.RotateMtrx(result), *f.outputFilename)
+		logger.LogToCsv(solvers.RotateMtrx(result),  *f.each, *f.outputFilename)
 	}
 }
