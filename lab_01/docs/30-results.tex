@@ -1,0 +1,52 @@
+\chapter{Результаты работы программного обеспечения}
+
+В данном разделе будут представлены результаты работы разработанного программного обеспечения.
+
+\section{Пример работы}
+
+На Рисунке \ref{img:example} представлен результат работы реализованного программного обеспечения. Значения вычислены для шага $10^{-4}$, выведено каждое 500 значение.
+
+\imgw{example}{ht!}{\textwidth}{Пример работы программы}
+
+\section{Результаты работы}
+
+В таблице \ref{tbl:results} приведены значения работы реализованного программного обеспечения. Значения вычислены для шага $10^{-4}$, выведено каждое 500 значение.
+
+\begin{landscape}
+    \begin{longtable}{|c|c|c|c|c|c|c|c|}
+        \caption[Вычисленные значения для различных методов.]{Вычисленные значения для различных методов.} \label{tbl:results} \\
+    
+        \hline 
+                   & \multicolumn{7}{c|}{\textbf{Методы решения}} \\\cline{2-8} 
+        \textbf{X} & \multicolumn{4}{c|}{\textbf{Пикарда (приближение)} } & \multicolumn{2}{c|}{\textbf{Эйлера}} & \textbf{Рунге-Кутта} \\ \cline{2-7}
+                   & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{Явный} & \textbf{Неявный} & \\
+        \endfirsthead
+    
+        \multicolumn{8}{l}%
+        {{\tablename\ \thetable{} -- продолжение}} \\
+        \hline 
+                   & \multicolumn{7}{c|}{\textbf{Метод решения}} \\\cline{2-8} 
+        \textbf{X} & \multicolumn{4}{c|}{\textbf{Пикарда (приближение)} } & \multicolumn{2}{c|}{\textbf{Эйлера}} & \textbf{Рунге-Кутта} \\ \cline{2-7}
+                   & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{Явный} & \textbf{Неявный} & \\\hline
+        \endhead
+        
+        \hline \multicolumn{8}{|r|}{{Продолжение на следующей странице}} \\ \hline
+        \endfoot
+        
+        \hline \multicolumn{8}{|r|}{{Конец таблицы}} \\ \hline
+        \endlastfoot
+        
+        \hline
+        \csvreader
+        [
+          late after line=\\\hline,
+          late after last line=\ ,
+          respect underscore = true,
+        ]
+        {inc/csv/results.csv}{}{\csvcoli&\csvcolii&\csvcoliii&\csvcoliv&\csvcolv&\csvcolvi&\csvcolvii&\csvcolviii}
+    \end{longtable}
+\end{landscape}
+
+\section{Вывод}
+
+В данном разделе были представлены результаты работы разработанного программного обеспечения.

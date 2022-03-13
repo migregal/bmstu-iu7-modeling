@@ -1,0 +1,92 @@
+\chapter{Теоритическая часть}
+
+В данном разделе рассматриваются существующие методы решения задачи Коши.
+
+\section{Постановка задачи Коши}
+
+Прежде чем описывать методы решения задачи, требуется провести постановку соответствующей задачи.
+
+Имеется ОДУ, у которого отсутствует аналитическое решение:
+
+\begin{equation}
+    \label{eq:initial_odu}
+    \begin{cases}
+        u^{\prime}(x) = f(x, u)\\
+        u(\xi) = \eta
+    \end{cases}
+\end{equation}
+
+Требуется найти решение данного ОДУ.
+
+В рамках данной лабораторной работы будет решаться следующая задача:
+
+\begin{equation}
+    \label{eq:cauchy_problem}
+    \begin{cases}
+        u^{\prime}(x) &= x^2 + u^2\\
+        u(0) &= 0
+    \end{cases}
+\end{equation}
+
+\section{Описание численных методов решения задачи Коши}
+
+\subsection{Метод Пикара}
+
+Из условия задачи Коши получаем:
+
+\begin{equation}
+    \label{eq:picar_solution}
+    u(x) = \eta +  \int_{\xi}^{x} \phi(t,u(t)) \,dt
+\end{equation}
+
+Построим ряд функций:
+
+\begin{equation}
+    \label{sol}
+    y^{(s)} = \eta +  \int_{\xi}^{x} \phi(t,y^{(s-1)}(t)) \,dt, \quad \quad
+    y^{(0)} = \eta
+\end{equation}
+
+Построим первые 4 приближения для уравнения \ref{eq:picar_solution}:
+
+\begin{align}
+    \label{eq:picar_solution_1}
+    y^{(1)}(x) &= 0 + \int_{0}^{x}(t^2 + 0^2)\,dt = \frac{x^3}{3}\\
+    \label{eq:picar_solution_2}
+    y^{(2)}(x) &= 0 + \int_{0}^{x}(t^2 + [\frac{t^3}{3}]^2)\,dt = \frac{x^3}{3} + \frac{x^7}{63}\\
+    \label{eq:picar_solution_3}
+    y^{(3)}(x) &= 0 + \int_{0}^{x}(t^2 + [\frac{t^3}{3} + \frac{t^7}{63}]^2)\,dt = \frac{x^3}{3} + \frac{x^7}{63} + \frac{2x^{11}}{2079} + \frac{x^{15}}{59535}\\
+    \label{eq:picar_solution_4}
+    \begin{split}
+        y^{(4)}(x) &= 0 + \int_{0}^{x}(t^2 + [\frac{t^3}{3} + \frac{t^7}{63} + \frac{2t^{11}}{2079} + \frac{t^{15}}{59535}]^2)\,dt = \\
+        &= \frac{x^3}{3} + \frac{x^7}{63} + \frac{2x^{11}}{2079} + \frac{13x^{15}}{218295} + \frac{82x^{19}}{37328445} + \\
+        &+ \frac{662x^{23}}{10438212015} + \frac{4x^{27}}{3341878155} + \frac{x^{31}}{109876902975}
+    \end{split}
+\end{align}
+
+\subsection{Метод Эйлера}
+
+\begin{equation}
+    \label{ey}
+    y^{(n+1)}(x) = y^{(n)}(x) + h \cdot f(x_{n}, y^{(n)})
+\end{equation}
+
+\indent Порядок точности: $O(h)$.
+
+\subsection{Неявный метод Эйлера}
+
+\begin{equation}
+    \label{eq:ey}
+    y^{(n+1)}(x) = y^{(n)}(x) + h \cdot f(x_{n+1}, y^{(n+1)})
+\end{equation}
+
+\subsection{Метод Рунге-Кутта}
+
+\begin{equation}
+    \label{eq:rk}
+    y^{n+1}(x) = y^{n}(x) + h ((1-\alpha) R_1 + \alpha R_2)
+\end{equation}
+
+где $R1 = f(x_{n}, y^{n})$, $R2 = f(x_{n} + \frac{h}{2\alpha}, y^{n} + \frac{h}{2\alpha}R_1)$, $\alpha = \frac{1}{2}$ или 1\newline
+
+Порядок точности: $O(h^2)$.
