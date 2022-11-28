@@ -1,0 +1,179 @@
+\chapter{Результат работы}
+
+\section{Без повторов, 1000 заявок}
+
+Входные данные:
+
+\begin{verbatim}
+a, b = 1, 10
+
+lambda = 4
+
+total_tasks = 1000
+repeat_percentage = 0.0
+step = 0.01
+\end{verbatim}
+
+Результаты моделирования:
+
+\begin{verbatim}
+step_model_res = 4
+event_model_res = 5
+\end{verbatim}
+
+На рисурке \ref{img:000-1000} представлена визуализация процесса моделирования системы с заданными параметрами.
+
+\imgw{000-1000}{ht!}{0.9\textwidth}{Визуализация процесса моделирования системы без повторов, 1000 заявок}
+
+\section{10\% повторов, 1000 заявок}
+
+Входные данные:
+
+\begin{verbatim}
+a, b = 1, 10
+
+lambda = 4
+
+total_tasks = 1000
+repeat_percentage = 0.1
+step = 0.01
+\end{verbatim}
+
+Результаты моделирования:
+
+\begin{verbatim}
+step_model_res = 5
+event_model_res = 7
+\end{verbatim}
+
+На рисурке \ref{img:010-1000} представлена визуализация процесса моделирования системы с заданными параметрами.
+
+\imgw{010-1000}{ht!}{0.9\textwidth}{Визуализация процесса моделирования системы 10\% повторов, 1000 заявок}
+
+\section{25\% повторов, 1000 заявок}
+
+Входные данные:
+
+\begin{verbatim}
+a, b = 1, 10
+
+lambda = 4
+
+total_tasks = 1000
+repeat_percentage = 0.25
+step = 0.01
+\end{verbatim}
+
+Результаты моделирования:
+
+\begin{verbatim}
+step_model_res = 23
+event_model_res = 18
+\end{verbatim}
+
+На рисурке \ref{img:025-1000} представлена визуализация процесса моделирования системы с заданными параметрами.
+
+\imgw{025-1000}{ht!}{0.9\textwidth}{Визуализация процесса моделирования системы 25\% повторов, 1000 заявок}
+
+\section{25\% повторов, 10000 заявок}
+
+Входные данные:
+
+\begin{verbatim}
+a, b = 1, 10
+
+lambda = 4
+
+total_tasks = 10000
+repeat_percentage = 0.25
+step = 0.01
+\end{verbatim}
+
+Результаты моделирования:
+
+\begin{verbatim}
+step_model_res = 39
+event_model_res = 32
+\end{verbatim}
+
+На рисурке \ref{img:025-10000} представлена визуализация процесса моделирования системы с заданными параметрами.
+
+\imgw{025-10000}{ht!}{0.9\textwidth}{Визуализация процесса моделирования системы 25\% повторов, 10000 заявок}
+
+\section{50\% повторов, 10000 заявок}
+
+Входные данные:
+
+\begin{verbatim}
+a, b = 1, 10
+
+lambda = 4
+
+total_tasks = 10000
+repeat_percentage = 0.5
+step = 0.01
+\end{verbatim}
+
+Результаты моделирования:
+
+\begin{verbatim}
+step_model_res = 2305
+event_model_res = 2211
+\end{verbatim}
+
+На рисурке \ref{img:050-10000} представлена визуализация процесса моделирования системы с заданными параметрами.
+
+\imgw{050-10000}{ht!}{0.9\textwidth}{Визуализация процесса моделирования системы 50\% повторов, 10000 заявок}
+
+\section{100\% повторов, 10000 заявок}
+
+Входные данные:
+
+\begin{verbatim}
+a, b = 1, 10
+
+lambda = 4
+
+total_tasks = 10000
+repeat_percentage = 1.0
+step = 0.01
+\end{verbatim}
+
+Результаты моделирования:
+
+\begin{verbatim}
+step_model_res = 7243
+event_model_res = 7217
+\end{verbatim}
+
+На рисурке \ref{img:100-10000} представлена визуализация процесса моделирования системы с заданными параметрами.
+
+\imgw{100-10000}{ht!}{0.9\textwidth}{Визуализация процесса моделирования системы 100\% повторов, 10000 заявок}
+
+\clearpage
+
+\section{Итоговая таблица сравения}
+
+Полученные в ходе эксперимента данные, представлены в таблице~\ref{tbl:result}.
+
+\begin{table}[ht]
+	\small
+	\begin{center}
+		\caption{Сводные данные по проведенным моделированиям системы и их параметрам}
+		\label{tbl:result}
+		\begin{tabular}{|c|c|c|c|c|c|c|c|}
+            \hline
+            \bfseries Кол-во & \bfseries Процент & Шаг & \multicolumn{2}{|c|}{\bfseries Равномерное} & \bfseries Пуассона & \multicolumn{2}{|c|}{\bfseries Размер очереди } \\\cline{4-8}
+			
+            \bfseries сообщений & \bfseries повторов & $\Delta t$ & \bfseries a & \bfseries b & \bfseries $\lambda$ & $\Delta t$ & События \\\hline
+            
+            1000  & 0   & 0.1 & 1 & 10 & 4 & 4    & 5    \\
+            1000  & 10  & 0.1 & 1 & 10 & 4 & 5    & 7    \\
+            1000  & 25  & 0.1 & 1 & 10 & 4 & 23   & 18   \\
+            10000 & 25  & 0.1 & 1 & 10 & 4 & 39   & 32   \\
+            10000 & 50  & 0.1 & 1 & 10 & 4 & 2305 & 2211 \\
+            10000 & 100 & 0.1 & 1 & 10 & 4 & 7243 & 7217 \\
+            \hline
+		\end{tabular}
+	\end{center}
+\end{table}
