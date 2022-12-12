@@ -1,0 +1,15 @@
+        SIMULATE
+        GENERATE    (UNIFORM(1,1,10))
+
+M_MEM   QUEUE       qMemory
+        SEIZE       Processor
+        DEPART      qMemory
+
+        ADVANCE     (POISSON(2,4))
+        RELEASE     Processor
+        TRANSFER    .10,M_END,M_MEM
+
+M_END   SAVEVALUE   REQUIRED_QUEUE_LEN,QM$qMemory
+
+        TERMINATE   1
+        START       1000

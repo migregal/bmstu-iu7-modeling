@@ -1,0 +1,126 @@
+\chapter{Результат работы}
+
+\section{Без повторов, 1000 заявок}
+
+Входные данные:
+
+\begin{verbatim}
+a, b = 1, 10
+
+lambda = 4
+
+total_tasks = 1000
+repeat_percentage = 0.0
+step = 0.01
+\end{verbatim}
+
+Результаты моделирования:
+
+\begin{verbatim}
+REQUIRED_QUEUE_LEN        4.000                            
+\end{verbatim}
+
+\section{10\% повторов, 1000 заявок}
+
+Входные данные:
+
+\begin{verbatim}
+a, b = 1, 10
+
+lambda = 4
+
+total_tasks = 1000
+repeat_percentage = 0.1
+step = 0.01
+\end{verbatim}
+
+Результаты моделирования:
+
+\begin{verbatim}
+REQUIRED_QUEUE_LEN        6.000                            
+\end{verbatim}
+
+\section{25\% повторов, 1000 заявок}
+
+Входные данные:
+
+\begin{verbatim}
+a, b = 1, 10
+
+lambda = 4
+
+total_tasks = 1000
+repeat_percentage = 0.25
+step = 0.01
+\end{verbatim}
+
+Результаты моделирования:
+
+\begin{verbatim}
+REQUIRED_QUEUE_LEN        15.000
+\end{verbatim}
+
+\section{25\% повторов, 10000 заявок}
+
+Входные данные:
+
+\begin{verbatim}
+a, b = 1, 10
+
+lambda = 4
+
+total_tasks = 10000
+repeat_percentage = 0.25
+step = 0.01
+\end{verbatim}
+
+Результаты моделирования:
+
+\begin{verbatim}
+REQUIRED_QUEUE_LEN        52.000                            
+\end{verbatim}
+
+\section{50\% повторов, 10000 заявок}
+
+Входные данные:
+
+\begin{verbatim}
+a, b = 1, 10
+
+lambda = 4
+
+total_tasks = 10000
+repeat_percentage = 0.5
+step = 0.01
+\end{verbatim}
+
+Результаты моделирования:
+
+\begin{verbatim}
+REQUIRED_QUEUE_LEN        4669.000                            
+\end{verbatim}
+
+\section{Итоговая таблица сравения}
+
+Полученные в ходе эксперимента данные, представлены в таблице~\ref{tbl:result}.
+
+\begin{table}[ht]
+	\small
+	\begin{center}
+		\caption{Сводные данные по проведенным моделированиям системы и их параметрам}
+		\label{tbl:result}
+		\begin{tabular}{|c|c|c|c|c|c|c|}
+            \hline
+            \bfseries Кол-во & \bfseries Процент & Шаг & \multicolumn{2}{|c|}{\bfseries Равномерное} & \bfseries Пуассона & \bfseries Размер очереди \\\cline{4-7}
+			
+            \bfseries сообщений & \bfseries повторов & $\Delta t$ & \bfseries a & \bfseries b & \bfseries $\lambda$ & $\Delta t$ \\\hline
+            
+            1000  & 0   & 0.1 & 1 & 10 & 4 & 4    \\
+            1000  & 10  & 0.1 & 1 & 10 & 4 & 6    \\
+            1000  & 25  & 0.1 & 1 & 10 & 4 & 15   \\
+            10000 & 25  & 0.1 & 1 & 10 & 4 & 52   \\
+            10000 & 50  & 0.1 & 1 & 10 & 4 & 4669 \\
+            \hline
+		\end{tabular}
+	\end{center}
+\end{table}
